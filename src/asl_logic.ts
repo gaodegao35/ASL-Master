@@ -23,13 +23,13 @@ export const ASL_LESSONS: ASLLetter[] = [
     letter: "A",
     description: "Make a fist with your hand. Keep the thumb resting on the side of the fist.",
     hint: "All fingers folded. Thumb visible on the side.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/a.gif&w=200"
+    diagramUrl: "/assets/asl/a.gif"
   },
   {
     letter: "B",
     description: "Open your palm with all fingers straight and together. Fold your thumb across your palm.",
     hint: "Fingers straight up. Thumb folded across the palm.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/b.gif&w=200"
+    diagramUrl: "/assets/asl/b.gif"
   },
   {
     letter: "C",
@@ -41,133 +41,133 @@ export const ASL_LESSONS: ASLLetter[] = [
     letter: "D",
     description: "Point your index finger straight up. Touch your thumb to your other three fingers to form a circle.",
     hint: "Index up, others form a circle with the thumb.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/d.gif&w=200"
+    diagramUrl: "/assets/asl/d.gif"
   },
   {
     letter: "E",
     description: "Fold all your fingers and your thumb tightly against your palm.",
     hint: "All fingers curled, tips touching the thumb.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/e.gif&w=200"
+    diagramUrl: "/assets/asl/e.gif"
   },
   {
     letter: "F",
     description: "Touch your index finger to your thumb. Keep your other three fingers straight and spread out.",
     hint: "Index and thumb touch. Other fingers up.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/f.gif&w=200"
+    diagramUrl: "/assets/asl/f.gif"
   },
   {
     letter: "G",
     description: "Point your index finger and thumb sideways, close together as if measuring something small.",
     hint: "Index and thumb point sideways, almost touching.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/g.gif&w=200"
+    diagramUrl: "/assets/asl/g.gif"
   },
   {
     letter: "H",
     description: "Point your index and middle fingers sideways and together. Fold the others.",
     hint: "Index and middle point sideways, together.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/h.gif&w=200"
+    diagramUrl: "/assets/asl/h.gif"
   },
   {
     letter: "I",
     description: "Point your pinky finger straight up. Fold all other fingers into a fist.",
     hint: "Pinky up, others down.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/i.gif&w=200"
+    diagramUrl: "/assets/asl/i.gif"
   },
   {
     letter: "J",
     description: "Start with the 'I' sign (pinky up) and draw a 'J' shape in the air.",
     hint: "Pinky up, draw a hook shape.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/j.gif&w=200"
+    diagramUrl: "/assets/asl/j.gif"
   },
   {
     letter: "K",
     description: "Point your index and middle fingers up. Touch your thumb to the middle of your middle finger.",
     hint: "Index and middle up, thumb touches middle.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/k.gif&w=200"
+    diagramUrl: "/assets/asl/k.gif"
   },
   {
     letter: "L",
     description: "Point your index finger straight up and extend your thumb out to the side to form an 'L'.",
     hint: "Index up, thumb out. Other fingers folded.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/l.gif&w=200"
+    diagramUrl: "/assets/asl/l.gif"
   },
   {
     letter: "M",
     description: "Fold your thumb under your index, middle, and ring fingers.",
     hint: "Thumb under three fingers.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/m.gif&w=200"
+    diagramUrl: "/assets/asl/m.gif"
   },
   {
     letter: "N",
     description: "Fold your thumb under your index and middle fingers.",
     hint: "Thumb under two fingers.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/n.gif&w=200"
+    diagramUrl: "/assets/asl/n.gif"
   },
   {
     letter: "O",
     description: "Touch all your fingers to your thumb to form an 'O' shape.",
     hint: "All fingers touch thumb in a circle.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/o.gif&w=200"
+    diagramUrl: "/assets/asl/o.gif"
   },
   {
     letter: "P",
     description: "Like the 'K' sign, but point your hand downwards.",
     hint: "Index and middle point down, thumb touches middle.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/p.gif&w=200"
+    diagramUrl: "/assets/asl/p.gif"
   },
   {
     letter: "Q",
     description: "Like the 'G' sign, but point your index finger and thumb downwards.",
     hint: "Index and thumb point down, close together.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/q.gif&w=200"
+    diagramUrl: "/assets/asl/q.gif"
   },
   {
     letter: "R",
     description: "Cross your index and middle fingers. Fold the others.",
     hint: "Index and middle fingers crossed.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/r.gif&w=200"
+    diagramUrl: "/assets/asl/r.gif"
   },
   {
     letter: "S",
     description: "Make a fist and place your thumb across the front of your fingers.",
     hint: "Fist with thumb across the front.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/s.gif&w=200"
+    diagramUrl: "/assets/asl/s.gif"
   },
   {
     letter: "T",
     description: "Make a fist and tuck your thumb under your index finger.",
     hint: "Thumb under index finger.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/t.gif&w=200"
+    diagramUrl: "/assets/asl/t.gif"
   },
   {
     letter: "U",
     description: "Point your index and middle fingers straight up and keep them together.",
     hint: "Index and middle up, together.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/u.gif&w=200"
+    diagramUrl: "/assets/asl/u.gif"
   },
   {
     letter: "V",
     description: "Extend your index and middle fingers in a 'V' shape. Fold the others.",
     hint: "Peace sign! Index and middle up, apart.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/v.gif&w=200"
+    diagramUrl: "/assets/asl/v.gif"
   },
   {
     letter: "W",
     description: "Extend your index, middle, and ring fingers. Fold the pinky and thumb.",
     hint: "Three fingers up! Index, middle, and ring.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/w.gif&w=200"
+    diagramUrl: "/assets/asl/w.gif"
   },
   {
     letter: "X",
     description: "Fold all fingers except the index. Hook your index finger slightly.",
     hint: "Index hooked, others down.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/x.gif&w=200"
+    diagramUrl: "/assets/asl/x.gif"
   },
   {
     letter: "Y",
     description: "Extend your thumb and pinky finger. Fold the other fingers.",
     hint: "Thumb and pinky out, others down.",
-    diagramUrl: "https://images.weserv.nl/?url=www.lifeprint.com/asl101/fingerspelling/abc-gifs/y.gif&w=200"
+    diagramUrl: "/assets/asl/y.gif"
   },
   {
     letter: "Z",
