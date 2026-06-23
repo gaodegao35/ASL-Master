@@ -1,0 +1,8 @@
+{
+  "name": "ASL Master: Interactive Learning",
+  "description": "A comprehensive ASL learning platform with structured lessons, practice modes, and real-time hand gesture recognition.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
