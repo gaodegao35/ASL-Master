@@ -297,12 +297,13 @@ export default function App() {
           const newSpelling = [...prev, letter];
           userSpellingRef.current = newSpelling; // Update ref immediately
           
-          // Use 2s lag for Level 4, 1s for others
-          const lagDuration = currentLevelRef.current === 4 ? 2000 : 1000;
+          // Lag between letters: shorter for Level 4 so continuous spelling
+          // doesn't stall. (Was 2s, which made detection feel like it lagged.)
+          const lagDuration = currentLevelRef.current === 4 ? 1100 : 1000;
           const newCooldown = Date.now() + lagDuration;
           setCooldown(newCooldown);
           cooldownRef.current = newCooldown; // Update ref immediately
-          
+
           doubleLetterDetector.current.reset();
           
           // Check if word is complete
@@ -680,8 +681,8 @@ export default function App() {
                 setUserSpelling(newBuffer);
                 userSpellingRef.current = newBuffer;
                 
-                // Use 2s lag for Level 4, 1s for Level 3
-                const lagDuration = currentLevelRef.current === 4 ? 2000 : 1000;
+                // Shorter Level 4 lag keeps continuous spelling flowing (was 2s).
+                const lagDuration = currentLevelRef.current === 4 ? 1100 : 1000;
                 const newCooldown = Date.now() + lagDuration;
                 setCooldown(newCooldown);
                 cooldownRef.current = newCooldown;

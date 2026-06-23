@@ -241,12 +241,24 @@ const extractFeatures = (landmarks: HandLandmarks): HandFeatures => {
   
   const thumbOut = dist(thumbTip, indexMcp) > palmSize * 0.5;
   
-  const thumbRelX = (landmarks[thumbTip].x - landmarks[indexMcp].x) / (landmarks[pinkyMcp].x - landmarks[indexMcp].x || 0.01);
+  // Rotation-invariant thumb position: project the thumb tip onto the knuckle
+  // line running from the index MCP (rel 0) to the pinky MCP (rel 1). Using a
+  // projection instead of a raw x-difference keeps this stable when the hand is
+  // tilted or the camera feed is mirrored — the previous x-only comparison made
+  // A/T/S/E (all closed fists) collapse into one another. A's thumb rests on the
+  // radial side, so it projects at/below the index knuckle (≈0 or negative); a
+  // thumb tucked between index & middle (T) lands a bit further along the line.
+  const kvx = landmarks[pinkyMcp].x - landmarks[indexMcp].x;
+  const kvy = landmarks[pinkyMcp].y - landmarks[indexMcp].y;
+  const kLen2 = kvx * kvx + kvy * kvy || 1e-6;
+  const thumbRelX =
+    ((landmarks[thumbTip].x - landmarks[indexMcp].x) * kvx +
+     (landmarks[thumbTip].y - landmarks[indexMcp].y) * kvy) / kLen2;
   let thumbPosition = 0;
-  if (thumbRelX < 0.1) thumbPosition = 0;
-  else if (thumbRelX < 0.35) thumbPosition = 1;
-  else if (thumbRelX < 0.65) thumbPosition = 2;
-  else if (thumbRelX < 0.85) thumbPosition = 3;
+  if (thumbRelX < 0.12) thumbPosition = 0;       // beside index → A
+  else if (thumbRelX < 0.42) thumbPosition = 1;  // between index & middle → T / S / E
+  else if (thumbRelX < 0.65) thumbPosition = 2;  // over middle → N
+  else if (thumbRelX < 0.85) thumbPosition = 3;  // over ring → M
   else thumbPosition = 4;
   
   const isCrossing = (landmarks[indexTip].x - landmarks[middleTip].x) * (landmarks[indexMcp].x - landmarks[middleMcp].x) < 0;
