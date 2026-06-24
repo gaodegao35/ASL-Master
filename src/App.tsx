@@ -32,6 +32,7 @@ export default function App() {
   const [feedback, setFeedback] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
+  const [isModelReady, setIsModelReady] = useState(false);
   const [handDetected, setHandDetected] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -864,6 +865,7 @@ export default function App() {
       });
       if (isClosed) { landmarker.close(); return; }
       handsRef.current = landmarker;
+      setIsModelReady(true);
     };
     initLandmarker();
 
@@ -1917,11 +1919,16 @@ export default function App() {
                       </span>
                     </motion.div>
                   )}
-                  {!isCameraReady && (
+                  {(!isCameraReady || !isModelReady) && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 text-white gap-4">
                       <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                      <p className="font-bold text-lg">Initializing Camera...</p>
-                      <button 
+                      <p className="font-bold text-lg">
+                        {!isCameraReady ? "Initializing Camera..." : "Loading hand detection..."}
+                      </p>
+                      <p className="text-sm text-gray-300 -mt-2">
+                        {!isCameraReady ? "Allow camera access to begin" : "Downloading the detection model (first load only)"}
+                      </p>
+                      <button
                         onClick={() => window.location.reload()}
                         className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-bold transition-colors"
                       >
@@ -1946,7 +1953,7 @@ export default function App() {
                         <div>
                           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Detection Status</p>
                           <p className="text-xl font-black text-gray-900">
-                            {!isCameraReady ? "Initializing Camera..." : !handDetected ? "Waiting for gesture..." : isCorrect ? "Recognized ✓" : "Detecting..."}
+                            {!isCameraReady ? "Initializing Camera..." : !isModelReady ? "Loading hand detection..." : !handDetected ? "Waiting for gesture..." : isCorrect ? "Recognized ✓" : "Detecting..."}
                           </p>
                         </div>
                       </div>
