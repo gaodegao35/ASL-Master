@@ -178,8 +178,9 @@ export default function App() {
       setStableFrames(0);
       doubleLetterDetector.current.reset();
       
-      // Set initial cooldown to prevent initial lag and give user prep time
-      const initialCooldown = Date.now() + 1500;
+      // Brief settle time on entry. Kept short so detection activates quickly
+      // when the user lands on the continuous-spelling level (was 1.5s).
+      const initialCooldown = Date.now() + 400;
       setCooldown(initialCooldown);
       cooldownRef.current = initialCooldown;
     }
@@ -680,8 +681,10 @@ export default function App() {
                 setUserSpelling(newBuffer);
                 userSpellingRef.current = newBuffer;
                 
-                // Shorter Level 4 lag keeps continuous spelling flowing (was 2s).
-                const lagDuration = currentLevelRef.current === 4 ? 1100 : 1000;
+                // Short lag between letters. Since detection now only accepts
+                // the next expected letter, holding a pose can't double-add, so
+                // this can be brief and just paces the transition (was 2s).
+                const lagDuration = currentLevelRef.current === 4 ? 700 : 700;
                 const newCooldown = Date.now() + lagDuration;
                 setCooldown(newCooldown);
                 cooldownRef.current = newCooldown;

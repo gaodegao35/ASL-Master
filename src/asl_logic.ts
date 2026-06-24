@@ -377,12 +377,18 @@ const scoreLetter = (letter: string, features: HandFeatures): number => {
       if (thumbOut && features.isVertical) score += 50;
       break;
     case "M":
+      // Thumb tucked under three fingers — projects toward the ring/pinky side.
+      // Accept the outer two buckets; detection is always single-target so a
+      // wide range can't cause cross-letter confusion, only easier triggering.
       if (isFolded(1) && isFolded(2) && isFolded(3) && isFolded(4)) score += 40;
-      if (thumbPosition >= 3) score += 60;
+      if (thumbPosition >= 2) score += 60;
       break;
     case "N":
+      // Thumb tucked under two fingers — projects between the index/middle and
+      // middle/ring gaps, which often reads as bucket 1 rather than a strict 2.
+      // Accept either so a real N actually registers.
       if (isFolded(1) && isFolded(2) && isFolded(3) && isFolded(4)) score += 40;
-      if (thumbPosition === 2) score += 60;
+      if (thumbPosition === 1 || thumbPosition === 2) score += 60;
       break;
     case "O":
       if (clustering < 0.3) score += 70;
