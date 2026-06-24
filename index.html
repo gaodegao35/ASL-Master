@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google AI Studio App</title>
+    <!-- Start fetching the hand-detection model + wasm immediately, in parallel
+         with the JS bundle, so detection activates sooner on first load. -->
+    <link rel="preload" as="fetch" href="/mediapipe/hand_landmarker.task" />
+    <link rel="preload" as="fetch" href="/mediapipe/wasm/vision_wasm_internal.wasm" />
   </head>
   <body>
     <div id="root"></div>

@@ -846,13 +846,14 @@ export default function App() {
     };
 
     const initLandmarker = async () => {
-      const vision = await FilesetResolver.forVisionTasks(
-        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/wasm'
-      );
+      // Load the wasm runtime and model from our own origin (bundled under
+      // public/mediapipe) instead of third-party CDNs. Same-origin + Vercel's
+      // edge cache + the <link rel="preload"> in index.html means the download
+      // starts with the page and detection activates far sooner on first load.
+      const vision = await FilesetResolver.forVisionTasks('/mediapipe/wasm');
       const landmarker = await HandLandmarker.createFromOptions(vision, {
         baseOptions: {
-          modelAssetPath:
-            'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
+          modelAssetPath: '/mediapipe/hand_landmarker.task',
           delegate: 'GPU',
         },
         runningMode: 'VIDEO',
