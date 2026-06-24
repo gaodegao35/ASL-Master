@@ -654,14 +654,13 @@ export default function App() {
             }
             
             let detectedLetter: string | null = null;
-            const wordLetters = Array.from(new Set(targetWord.split("")));
 
-            // Only check for letters present in the target word
-            for (const l of wordLetters) {
-              if (detectGesture(l, landmarks, landmarksHistory.current, jDetector.current, zDetector.current)) {
-                detectedLetter = l;
-                break;
-              }
+            // Match ONLY the next expected letter, in sequence. Scanning every
+            // letter in the word let look-alikes win out of order (e.g. EARLY
+            // starting with A instead of E).
+            const expectedNext = targetWord[continuousBufferRef.current.length];
+            if (expectedNext && detectGesture(expectedNext, landmarks, landmarksHistory.current, jDetector.current, zDetector.current)) {
+              detectedLetter = expectedNext;
             }
 
             if (detectedLetter) {
@@ -745,27 +744,21 @@ export default function App() {
             const expectedLetter = stage.steps[userSpellingRef.current.length];
             let detectedLetter: string | null = null;
 
-            // Only check for letters present in the target word
-            const wordLetters = Array.from(new Set(stage.word.split("")));
-
-            // Priority 1: Expected Letter (including double letters)
+            // Match ONLY the expected letter for this step. A reference video /
+            // diagram already tells the learner exactly which sign to make, so
+            // we no longer fall back to "any other letter in the word" — that
+            // fallback is what let look-alike fists slip through (e.g. signing
+            // T but having it accepted as A). If the expected letter isn't
+            // formed, detectedLetter stays null and the hint logic below runs.
             if (expectedLetter && expectedLetter.length > 1) {
               const dist = (p1: number, p2: number) => Math.sqrt(Math.pow(landmarks[p1].x - landmarks[p2].x, 2) + Math.pow(landmarks[p1].y - landmarks[p2].y, 2));
               const palmSize = dist(0, 9); // wrist to middle MCP
-              
+
               if (doubleLetterDetector.current.detect(expectedLetter, landmarks, palmSize)) {
                 detectedLetter = expectedLetter;
               }
             } else if (expectedLetter && detectGesture(expectedLetter, landmarks, landmarksHistory.current, jDetector.current, zDetector.current)) {
               detectedLetter = expectedLetter;
-            } else {
-              // Priority 2: Other letter in the target word
-              for (const l of wordLetters) {
-                if (detectGesture(l, landmarks, landmarksHistory.current, jDetector.current, zDetector.current)) {
-                  detectedLetter = l;
-                  break;
-                }
-              }
             }
 
             if (detectedLetter) {
