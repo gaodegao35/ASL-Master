@@ -33,6 +33,7 @@ export default function App() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [isModelReady, setIsModelReady] = useState(false);
+  const [modelError, setModelError] = useState(false);
   const [handDetected, setHandDetected] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -851,21 +852,41 @@ export default function App() {
       // public/mediapipe) instead of third-party CDNs. Same-origin + Vercel's
       // edge cache + the <link rel="preload"> in index.html means the download
       // starts with the page and detection activates far sooner on first load.
-      const vision = await FilesetResolver.forVisionTasks('/mediapipe/wasm');
-      const landmarker = await HandLandmarker.createFromOptions(vision, {
-        baseOptions: {
+      try {
+        const vision = await FilesetResolver.forVisionTasks('/mediapipe/wasm');
+        const baseOptions = {
           modelAssetPath: '/mediapipe/hand_landmarker.task',
-          delegate: 'GPU',
-        },
-        runningMode: 'VIDEO',
-        numHands: 1,
-        minHandDetectionConfidence: 0.5,
-        minHandPresenceConfidence: 0.5,
-        minTrackingConfidence: 0.5,
-      });
-      if (isClosed) { landmarker.close(); return; }
-      handsRef.current = landmarker;
-      setIsModelReady(true);
+          delegate: 'GPU' as 'GPU' | 'CPU',
+        };
+        const makeOptions = () => ({
+          baseOptions,
+          runningMode: 'VIDEO' as const,
+          numHands: 1,
+          minHandDetectionConfidence: 0.5,
+          minHandPresenceConfidence: 0.5,
+          minTrackingConfidence: 0.5,
+        });
+
+        let landmarker: HandLandmarker;
+        try {
+          landmarker = await HandLandmarker.createFromOptions(vision, makeOptions());
+        } catch (gpuErr) {
+          // Some devices/browsers have no working GPU (WebGL2) path — driver
+          // issues, locked-down machines, certain mobile browsers. Fall back to
+          // CPU so detection still works (a bit slower) instead of failing.
+          console.warn('GPU delegate unavailable, retrying on CPU:', gpuErr);
+          baseOptions.delegate = 'CPU';
+          landmarker = await HandLandmarker.createFromOptions(vision, makeOptions());
+        }
+        if (isClosed) { landmarker.close(); return; }
+        handsRef.current = landmarker;
+        setIsModelReady(true);
+      } catch (err) {
+        // wasm/model failed to load entirely (e.g. network failure). Surface it
+        // instead of leaving the loading spinner up indefinitely.
+        console.error('Hand detection failed to initialize:', err);
+        if (!isClosed) setModelError(true);
+      }
     };
     initLandmarker();
 
@@ -1920,14 +1941,24 @@ export default function App() {
                     </motion.div>
                   )}
                   {(!isCameraReady || !isModelReady) && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 text-white gap-4">
-                      <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                      <p className="font-bold text-lg">
-                        {!isCameraReady ? "Initializing Camera..." : "Loading hand detection..."}
-                      </p>
-                      <p className="text-sm text-gray-300 -mt-2">
-                        {!isCameraReady ? "Allow camera access to begin" : "Downloading the detection model (first load only)"}
-                      </p>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 text-white gap-4 px-6 text-center">
+                      {modelError ? (
+                        <>
+                          <XCircle className="w-12 h-12 text-red-400" />
+                          <p className="font-bold text-lg">Couldn't load hand detection</p>
+                          <p className="text-sm text-gray-300 -mt-2">Check your internet connection and try again.</p>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                          <p className="font-bold text-lg">
+                            {!isCameraReady ? "Initializing Camera..." : "Loading hand detection..."}
+                          </p>
+                          <p className="text-sm text-gray-300 -mt-2">
+                            {!isCameraReady ? "Allow camera access to begin" : "Downloading the detection model (first load only)"}
+                          </p>
+                        </>
+                      )}
                       <button
                         onClick={() => window.location.reload()}
                         className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-bold transition-colors"
