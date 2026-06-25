@@ -558,7 +558,7 @@ export default function App() {
             // Hint logic: if hand is detected but not correct for > 5s
             if (handDetectedStartTimestamp.current === null) {
               handDetectedStartTimestamp.current = Date.now();
-            } else if (Date.now() - handDetectedStartTimestamp.current > 5000) {
+            } else if (Date.now() - handDetectedStartTimestamp.current > 3000) {
               const adaptiveHint = getAdaptiveHint(lesson.letter, landmarks);
               setFeedback(`Hint: ${adaptiveHint}`);
             } else {
@@ -604,7 +604,7 @@ export default function App() {
             // Adaptive hints for Level 2 (no diagram mention)
             if (handDetectedStartTimestamp.current === null) {
               handDetectedStartTimestamp.current = Date.now();
-            } else if (Date.now() - handDetectedStartTimestamp.current > 5000) {
+            } else if (Date.now() - handDetectedStartTimestamp.current > 3000) {
               const adaptiveHint = getAdaptiveHint(lesson.letter, landmarks, false);
               setFeedback(`Hint: ${adaptiveHint}`);
             } else {
@@ -822,7 +822,7 @@ export default function App() {
               // Hint logic: if hand is detected but not correct for > 5s (Level 3 only)
               if (handDetectedStartTimestamp.current === null) {
                 handDetectedStartTimestamp.current = Date.now();
-              } else if (Date.now() - handDetectedStartTimestamp.current > 5000 && currentLevelRef.current !== 4) {
+              } else if (Date.now() - handDetectedStartTimestamp.current > 3000 && currentLevelRef.current !== 4) {
                 const adaptiveHint = getAdaptiveHint(expectedLetter, landmarks);
                 setFeedback(`Hint: ${adaptiveHint}`);
               } else {
