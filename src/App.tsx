@@ -59,11 +59,8 @@ export default function App() {
   useEffect(() => {
     const preloadImages = () => {
       ASL_LESSONS.forEach((lesson) => {
-        const url = lesson.diagramUrl.includes('weserv.nl') 
-          ? `${lesson.diagramUrl}&w=300` 
-          : lesson.diagramUrl;
         const img = new Image();
-        img.src = url;
+        img.src = lesson.diagramUrl;
       });
     };
     preloadImages();
@@ -144,9 +141,8 @@ export default function App() {
       
       // Aggressively preload shuffled images for Level 2
       shuffled.forEach(lesson => {
-        const url = lesson.diagramUrl.includes('weserv.nl') ? `${lesson.diagramUrl}&w=300` : lesson.diagramUrl;
         const img = new Image();
-        img.src = url;
+        img.src = lesson.diagramUrl;
       });
 
       setPracticeLetters(shuffled);
@@ -1901,7 +1897,7 @@ export default function App() {
                                 </div>
                               ) : (
                                 <img 
-                                  src={practiceLetters[practiceIndex]?.diagramUrl.includes('weserv.nl') ? `${practiceLetters[practiceIndex]?.diagramUrl}&w=300` : practiceLetters[practiceIndex]?.diagramUrl} 
+                                  src={practiceLetters[practiceIndex]?.diagramUrl}
                                   alt="Success Illustration"
                                   className="h-40 object-contain"
                                   referrerPolicy="no-referrer"
@@ -2039,7 +2035,7 @@ export default function App() {
                             key={currentLesson?.letter}
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            src={currentLesson?.diagramUrl.includes('weserv.nl') ? `${currentLesson?.diagramUrl}&w=300` : currentLesson?.diagramUrl} 
+                            src={currentLesson?.diagramUrl}
                             alt={`ASL Letter ${currentLesson?.letter}`}
                             referrerPolicy="no-referrer"
                             className="h-48 object-contain drop-shadow-xl"
