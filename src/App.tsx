@@ -1825,7 +1825,7 @@ export default function App() {
 
         <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50/50">
           {/* Top Header with Progress */}
-          <header className="bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between shadow-sm z-10">
+          <header className="bg-white border-b border-gray-100 px-4 sm:px-8 py-4 flex items-center justify-between gap-3 shadow-sm z-10">
             <div className="flex items-center gap-8">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-3">
@@ -1868,9 +1868,9 @@ export default function App() {
             </div>
           </header>
 
-          <div className="flex-1 flex overflow-hidden">
-            {/* Center Column: Camera & Feedback */}
-            <div className="flex-1 p-8 flex flex-col gap-6 overflow-y-auto items-center">
+          <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
+            {/* Camera & Feedback — full width on mobile, left column on desktop */}
+            <div className="w-full lg:flex-1 p-4 lg:p-8 flex flex-col gap-6 lg:overflow-y-auto items-center">
               <div className="w-full max-w-5xl">
                 <div className="relative w-full aspect-video bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                   <div ref={p5ContainerRef} className="w-full h-full" />
@@ -2020,9 +2020,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Column: Content & Navigation */}
-            <div className="w-96 bg-white border-l border-gray-100 flex flex-col overflow-hidden">
-              <div className="flex-1 overflow-y-auto p-6">
+            {/* Content & Navigation — full width below the camera on mobile, right column on desktop */}
+            <div className="w-full lg:w-96 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 flex flex-col lg:overflow-hidden">
+              <div className="flex-1 lg:overflow-y-auto p-4 lg:p-6">
                 {currentLevel === 1 ? (
                   <div className="space-y-8">
                     <div className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative min-h-[240px]">
