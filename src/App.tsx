@@ -467,7 +467,7 @@ export default function App() {
                 <button
                   key={lesson.letter}
                   onClick={() => setCurrentLessonIndex(lessonIdx)}
-                  className={`w-12 h-11 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
+                  className={`w-16 h-11 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
                     isActive
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-200 lg:scale-105 z-10"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
