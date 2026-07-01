@@ -458,7 +458,7 @@ export default function App() {
       <div className="p-0 lg:p-2">
         <div className="mb-0 lg:mb-4">
           <h3 className="text-[10px] lg:text-xs font-black text-gray-400 uppercase tracking-widest mb-2 lg:mb-3">Letters in Group</h3>
-          <div className="grid grid-cols-3 gap-1.5 lg:gap-2">
+          <div className="grid grid-rows-2 grid-flow-col gap-1.5 lg:gap-2 w-max">
             {groupLetters.map((lesson) => {
               const lessonIdx = ASL_LESSONS.findIndex(l => l.letter === lesson.letter);
               const isActive = currentLessonIndex === lessonIdx;
@@ -467,7 +467,7 @@ export default function App() {
                 <button
                   key={lesson.letter}
                   onClick={() => setCurrentLessonIndex(lessonIdx)}
-                  className={`h-8 lg:h-auto lg:aspect-square rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
+                  className={`w-9 h-8 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
                     isActive
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-200 lg:scale-105 z-10"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
@@ -2033,7 +2033,7 @@ export default function App() {
                   <div className="space-y-5 lg:space-y-8">
                     {/* Phone: illustration + "Letter X" (col 1) and Letters in Group (col 2). Desktop: stacked. */}
                     <div className="flex flex-row lg:flex-col gap-4 lg:gap-6 items-start lg:items-stretch">
-                      <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative shrink-0 w-28 sm:w-36 lg:w-full lg:min-h-[220px]">
+                      <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative flex-1 lg:flex-none lg:w-full lg:min-h-[220px]">
                         <AnimatePresence mode="wait">
                           {imageError ? (
                             <motion.div
@@ -2053,7 +2053,7 @@ export default function App() {
                               src={currentLesson?.diagramUrl}
                               alt={`ASL Letter ${currentLesson?.letter}`}
                               referrerPolicy="no-referrer"
-                              className="h-20 sm:h-28 lg:h-44 object-contain drop-shadow-xl"
+                              className="h-28 sm:h-36 lg:h-44 object-contain drop-shadow-xl"
                               onError={handleImageError}
                             />
                           )}
@@ -2061,7 +2061,7 @@ export default function App() {
                         <p className="mt-2 lg:mt-4 text-xs lg:text-base text-gray-800 font-black whitespace-nowrap">Letter {currentLesson?.letter}</p>
                       </div>
 
-                      <div className="flex-1 min-w-0 w-full">
+                      <div className="shrink-0 lg:w-full">
                         <Level1Content />
                       </div>
                     </div>
