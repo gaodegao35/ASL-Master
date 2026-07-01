@@ -1820,12 +1820,7 @@ export default function App() {
 
         <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50/50">
           {/* Top Header with Progress */}
-          <header className="relative bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between shadow-sm z-10">
-            <img
-              src="/assets/logo.svg"
-              alt="ASL Master"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 pointer-events-none select-none"
-            />
+          <header className="bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between shadow-sm z-10">
             <div className="flex items-center gap-8">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-3">
@@ -1862,8 +1857,9 @@ export default function App() {
                 onClick={() => setIsSidebarExpanded(true)}
                 className="px-4 h-10 rounded-2xl bg-blue-50 flex items-center justify-center gap-2 text-blue-600 hover:bg-blue-100 transition-colors shadow-sm"
               >
-                <Menu className="w-5 h-5" />
-                <span className="text-xs font-black uppercase tracking-widest">Menu</span>
+                <img src="/assets/phone.svg" alt="Menu" className="w-5 h-5 sm:hidden" />
+                <Menu className="w-5 h-5 hidden sm:block" />
+                <span className="text-xs font-black uppercase tracking-widest hidden sm:inline">Menu</span>
               </button>
             </div>
           </header>
