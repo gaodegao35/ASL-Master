@@ -2053,7 +2053,7 @@ export default function App() {
                               src={currentLesson?.diagramUrl}
                               alt={`ASL Letter ${currentLesson?.letter}`}
                               referrerPolicy="no-referrer"
-                              className="h-28 sm:h-36 lg:h-44 object-contain drop-shadow-xl"
+                              className="h-40 sm:h-48 lg:h-48 object-contain drop-shadow-xl"
                               onError={handleImageError}
                             />
                           )}
