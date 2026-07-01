@@ -322,7 +322,10 @@ const scoreLetter = (letter: string, features: HandFeatures): number => {
       if (thumbPosition === 0) score += 40;
       break;
     case "B":
-      if ((isExtended(1) || isBent(1)) && (isExtended(2) || isBent(2)) && (isExtended(3) || isBent(3)) && (isExtended(4) || isBent(4))) score += 60;
+      // Require genuinely extended fingers (a flat hand), not merely bent/curled.
+      // The old bent-OK rule let a loose fist read as B, which allowed words like
+      // BANK to be "spelled" with a fist in continuous mode.
+      if (isExtended(1) && isExtended(2) && isExtended(3) && (isExtended(4) || isBent(4))) score += 60;
       if (!thumbOut) score += 20;
       if (clustering < 0.4) score += 20;
       break;

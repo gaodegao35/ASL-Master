@@ -309,7 +309,7 @@ export default function App() {
           if (newSpelling.length === stage.steps.length) {
             const isWordCorrect = newSpelling.every((char, idx) => char === stage.steps[idx]);
             if (isWordCorrect) {
-              setSpellingFeedback(`Correct! You spelled ${stage.word}!`);
+              setSpellingFeedback(null);
               setIsCorrect(true);
               isCorrectRef.current = true;
               setIsWaitingForReset(true);
@@ -694,7 +694,7 @@ export default function App() {
                       setIsCorrect(true);
                       isCorrectRef.current = true;
                       setFeedback(`Word Complete: ${targetWord}!`);
-                      setSpellingFeedback(`Correct! You spelled ${targetWord}!`);
+                      setSpellingFeedback(null);
                       setUserSpelling(targetWord.split("")); // Fill the box to show completion
                       setIsWaitingForReset(true);
                       isWaitingForResetRef.current = true;
@@ -1863,7 +1863,7 @@ export default function App() {
                 className="px-4 h-10 rounded-2xl bg-blue-50 flex items-center justify-center gap-2 text-blue-600 hover:bg-blue-100 transition-colors shadow-sm"
               >
                 <Menu className="w-5 h-5" />
-                <span className="text-xs font-black uppercase tracking-widest">Menu</span>
+                <span className="hidden sm:inline text-xs font-black uppercase tracking-widest">Menu</span>
               </button>
             </div>
           </header>
@@ -1928,8 +1928,10 @@ export default function App() {
                   />
                   {/* Detection status pill — sits at the top of the camera (phone only) */}
                   {isCameraReady && isModelReady && (
-                    <div className="lg:hidden absolute top-3 left-1/2 -translate-x-1/2 z-20 px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md text-white text-xs font-bold shadow-lg whitespace-nowrap">
-                      {isCorrect ? "Recognized ✓" : !handDetected ? "Waiting for gesture..." : "Detecting..."}
+                    <div className={`lg:hidden absolute top-3 left-1/2 -translate-x-1/2 z-20 max-w-[92%] px-4 py-1.5 rounded-full backdrop-blur-md text-white text-xs font-bold shadow-lg text-center leading-snug ${
+                      isCorrect ? 'bg-green-500/90' : (feedback && feedback.startsWith('Hint:')) ? 'bg-blue-500/90' : 'bg-black/50'
+                    }`}>
+                      {isCorrect ? "Recognized ✓" : (feedback && feedback.startsWith('Hint:')) ? feedback : !handDetected ? "Waiting for gesture..." : "Detecting..."}
                     </div>
                   )}
                   {currentLevel === 2 && isCameraReady && !isPracticeFinished && !showPracticeInstruction && (
