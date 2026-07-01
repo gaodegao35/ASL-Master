@@ -1977,7 +1977,7 @@ export default function App() {
               <div className="w-full max-w-5xl space-y-4">
                 <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm">
                   <div className="flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 lg:gap-4">
                       <div className="flex items-center gap-4">
                         <div className={`p-3 rounded-2xl transition-colors duration-300 ${
                           isCorrect ? 'bg-green-500 text-white shadow-lg shadow-green-100' : 'bg-blue-50 text-blue-600'
@@ -1991,7 +1991,7 @@ export default function App() {
                           </p>
                         </div>
                       </div>
-                      <div className="text-right max-w-[200px]">
+                      <div className="text-left lg:text-right max-w-none lg:max-w-[200px]">
                         <p className="text-xs font-medium text-gray-400 leading-tight">
                           Hold your gesture steady until it is recognized.
                         </p>
