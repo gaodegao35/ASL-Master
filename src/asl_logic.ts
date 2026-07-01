@@ -543,15 +543,10 @@ export const getAdaptiveHint = (letter: string, landmarks: HandLandmarks, includ
       break;
   }
   
-  // Fallback — always give an explicit, actionable instruction (never a vague
-  // "adjust your hand"). Double letters (e.g. "EE", "LL", "SS") have no single-
-  // letter entry, so guide the base letter (recurse for its specific hint) and
-  // then the "slide to repeat" motion.
-  if (letter && letter.length > 1) {
-    const baseHint = getAdaptiveHint(letter[0], landmarks, includeDiagramHint);
-    return `${baseHint} Then slide your hand slightly to the side to repeat the letter.`;
-  }
-  const lesson = ASL_LESSONS.find(l => l.letter === letter);
+  // Fallback — use the letter's own descriptive text (the same wording shown
+  // with its illustration). Double letters (e.g. "EE") fall back to the base letter.
+  const base = letter && letter.length > 1 ? letter[0] : letter;
+  const lesson = ASL_LESSONS.find(l => l.letter === base);
   return lesson ? lesson.description : "Shape your fingers and thumb to form this letter.";
 };
 
