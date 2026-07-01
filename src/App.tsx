@@ -2024,38 +2024,48 @@ export default function App() {
             <div className="w-full lg:w-96 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 flex flex-col lg:overflow-hidden">
               <div className="flex-1 lg:overflow-y-auto p-4 lg:p-6">
                 {currentLevel === 1 ? (
-                  <div className="space-y-8">
-                    <div className="bg-gray-50 rounded-3xl p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative min-h-[240px]">
-                      <AnimatePresence mode="wait">
-                        {imageError ? (
-                          <motion.div 
-                            key="error"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="flex flex-col items-center text-gray-400 gap-2"
-                          >
-                            <XCircle className="w-12 h-12" />
-                            <p className="text-sm font-medium">Image failed to load</p>
-                          </motion.div>
-                        ) : (
-                          <motion.img 
-                            key={currentLesson?.letter}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            src={currentLesson?.diagramUrl}
-                            alt={`ASL Letter ${currentLesson?.letter}`}
-                            referrerPolicy="no-referrer"
-                            className="h-48 object-contain drop-shadow-xl"
-                            onError={handleImageError}
-                          />
-                        )}
-                      </AnimatePresence>
-                      <p className="mt-4 text-[10px] text-gray-400 font-black uppercase tracking-widest">Visual Reference</p>
+                  <div className="space-y-6 lg:space-y-8">
+                    {/* Illustration + letter: compact side-by-side on phone, stacked & large on desktop */}
+                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 items-center lg:items-stretch">
+                      <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative shrink-0 w-28 sm:w-36 lg:w-auto lg:min-h-[240px]">
+                        <AnimatePresence mode="wait">
+                          {imageError ? (
+                            <motion.div
+                              key="error"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="flex flex-col items-center text-gray-400 gap-2"
+                            >
+                              <XCircle className="w-8 h-8 lg:w-12 lg:h-12" />
+                              <p className="text-xs lg:text-sm font-medium">Image failed</p>
+                            </motion.div>
+                          ) : (
+                            <motion.img
+                              key={currentLesson?.letter}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              src={currentLesson?.diagramUrl}
+                              alt={`ASL Letter ${currentLesson?.letter}`}
+                              referrerPolicy="no-referrer"
+                              className="h-20 sm:h-28 lg:h-48 object-contain drop-shadow-xl"
+                              onError={handleImageError}
+                            />
+                          )}
+                        </AnimatePresence>
+                        <p className="mt-2 lg:mt-4 text-[9px] lg:text-[10px] text-gray-400 font-black uppercase tracking-widest">Visual Reference</p>
+                      </div>
+
+                      <div className="space-y-1 lg:space-y-2 flex-1 min-w-0">
+                        <h2 className="text-2xl lg:text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
+                        <p className="text-gray-500 leading-relaxed text-xs lg:text-sm">
+                          {currentLesson?.description}
+                        </p>
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-4 px-2">
                       <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden shadow-inner">
-                        <motion.div 
+                        <motion.div
                           className="h-full bg-blue-500"
                           initial={{ width: 0 }}
                           animate={{ width: `${progress}%` }}
@@ -2065,13 +2075,6 @@ export default function App() {
                       <span className="text-xs font-bold text-blue-600">
                         {Math.round(progress)}%
                       </span>
-                    </div>
-
-                    <div className="space-y-2">
-                      <h2 className="text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
-                      <p className="text-gray-500 leading-relaxed text-sm">
-                        {currentLesson?.description}
-                      </p>
                     </div>
 
                     <div className="pt-4 border-t border-gray-50">
