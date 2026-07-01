@@ -467,13 +467,13 @@ export default function App() {
                 <button
                   key={lesson.letter}
                   onClick={() => setCurrentLessonIndex(lessonIdx)}
-                  className={`h-9 lg:h-auto lg:aspect-square rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
+                  className={`h-8 lg:h-auto lg:aspect-square rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
                     isActive
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-200 lg:scale-105 z-10"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                   }`}
                 >
-                  <span className="text-sm lg:text-xl font-bold">{lesson.letter}</span>
+                  <span className="text-xs lg:text-xl font-bold">{lesson.letter}</span>
                 </button>
               );
             })}
@@ -1926,6 +1926,12 @@ export default function App() {
                     playsInline
                     muted
                   />
+                  {/* Detection status pill — sits at the top of the camera (phone only) */}
+                  {isCameraReady && isModelReady && (
+                    <div className="lg:hidden absolute top-3 left-1/2 -translate-x-1/2 z-20 px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md text-white text-xs font-bold shadow-lg whitespace-nowrap">
+                      {isCorrect ? "Recognized ✓" : !handDetected ? "Waiting for gesture..." : "Detecting..."}
+                    </div>
+                  )}
                   {currentLevel === 2 && isCameraReady && !isPracticeFinished && !showPracticeInstruction && (
                     <motion.div 
                       className="absolute top-6 right-6 w-16 h-16 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-blue-100 flex flex-col items-center justify-center z-20"
@@ -1973,8 +1979,8 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Feedback & Hints */}
-              <div className="w-full max-w-5xl space-y-4">
+              {/* Feedback & Hints (desktop only — phone shows the status pill in the camera) */}
+              <div className="hidden lg:block w-full max-w-5xl space-y-4">
                 <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm">
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 lg:gap-4">
@@ -2024,10 +2030,10 @@ export default function App() {
             <div className="w-full lg:w-96 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 flex flex-col lg:overflow-hidden">
               <div className="flex-1 lg:overflow-y-auto p-4 lg:p-6">
                 {currentLevel === 1 ? (
-                  <div className="space-y-6 lg:space-y-8">
-                    {/* Illustration (left) + letter explanation (right) — horizontal on phone, stacked on desktop */}
-                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 items-center lg:items-stretch">
-                      <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative shrink-0 w-28 sm:w-36 lg:w-auto lg:min-h-[240px]">
+                  <div className="space-y-5 lg:space-y-8">
+                    {/* Phone: illustration + "Letter X" (col 1) and Letters in Group (col 2). Desktop: stacked. */}
+                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-6 items-start lg:items-stretch">
+                      <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative shrink-0 w-28 sm:w-36 lg:w-full lg:min-h-[220px]">
                         <AnimatePresence mode="wait">
                           {imageError ? (
                             <motion.div
@@ -2047,19 +2053,16 @@ export default function App() {
                               src={currentLesson?.diagramUrl}
                               alt={`ASL Letter ${currentLesson?.letter}`}
                               referrerPolicy="no-referrer"
-                              className="h-20 sm:h-28 lg:h-48 object-contain drop-shadow-xl"
+                              className="h-20 sm:h-28 lg:h-44 object-contain drop-shadow-xl"
                               onError={handleImageError}
                             />
                           )}
                         </AnimatePresence>
-                        <p className="mt-2 lg:mt-4 text-[9px] lg:text-[10px] text-gray-400 font-black uppercase tracking-widest">Visual Reference</p>
+                        <p className="mt-2 lg:mt-4 text-xs lg:text-base text-gray-800 font-black whitespace-nowrap">Letter {currentLesson?.letter}</p>
                       </div>
 
-                      <div className="space-y-1 lg:space-y-2 flex-1 min-w-0">
-                        <h2 className="text-lg lg:text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
-                        <p className="text-gray-500 leading-relaxed text-xs lg:text-sm">
-                          {currentLesson?.description}
-                        </p>
+                      <div className="flex-1 min-w-0 w-full">
+                        <Level1Content />
                       </div>
                     </div>
 
@@ -2075,10 +2078,6 @@ export default function App() {
                       <span className="text-xs font-bold text-blue-600">
                         {Math.round(progress)}%
                       </span>
-                    </div>
-
-                    <div className="pt-4 border-t border-gray-50">
-                      <Level1Content />
                     </div>
                   </div>
                 ) : currentLevel === 2 ? (
