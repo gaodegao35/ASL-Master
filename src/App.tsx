@@ -1409,9 +1409,14 @@ export default function App() {
       >
         <div className="p-4 border-b border-gray-50 flex items-center justify-between overflow-hidden">
           <img
+            src="/assets/phone.svg"
+            alt="ASL Master"
+            className="h-8 w-auto object-contain object-left select-none sm:hidden"
+          />
+          <img
             src="/assets/frame1.svg"
             alt="ASL Master"
-            className="h-7 w-auto max-w-[200px] object-contain object-left select-none"
+            className="h-7 w-auto max-w-[200px] object-contain object-left select-none hidden sm:block"
           />
           <button 
             onClick={() => setIsSidebarExpanded(false)}
@@ -1857,9 +1862,8 @@ export default function App() {
                 onClick={() => setIsSidebarExpanded(true)}
                 className="px-4 h-10 rounded-2xl bg-blue-50 flex items-center justify-center gap-2 text-blue-600 hover:bg-blue-100 transition-colors shadow-sm"
               >
-                <img src="/assets/phone.svg" alt="Menu" className="w-5 h-5 sm:hidden" />
-                <Menu className="w-5 h-5 hidden sm:block" />
-                <span className="text-xs font-black uppercase tracking-widest hidden sm:inline">Menu</span>
+                <Menu className="w-5 h-5" />
+                <span className="text-xs font-black uppercase tracking-widest">Menu</span>
               </button>
             </div>
           </header>
