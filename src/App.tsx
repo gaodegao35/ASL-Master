@@ -1635,10 +1635,10 @@ export default function App() {
               <div>
                 <h2 className="text-2xl font-black text-gray-900 mb-3">Level 2</h2>
                 <p className="text-base font-bold text-gray-700 leading-relaxed">
-                  You are about to enter Level 2, where no instructions or reference
-                  illustrations are provided — you’ll practice from memory, with adaptive
-                  feedback to help correct your gestures. Make sure you’re familiar with
-                  the gestures in Level 1 before continuing.
+                  You are about to enter Level 2, where no visual reference is provided —
+                  you’ll practice from memory, with adaptive feedback to help correct your
+                  gestures. Make sure you’re familiar with the gestures in Level 1 before
+                  continuing.
                 </p>
               </div>
               <div className="flex flex-col gap-3">
