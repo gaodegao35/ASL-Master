@@ -309,7 +309,7 @@ export default function App() {
           if (newSpelling.length === stage.steps.length) {
             const isWordCorrect = newSpelling.every((char, idx) => char === stage.steps[idx]);
             if (isWordCorrect) {
-              setSpellingFeedback(null);
+              setSpellingFeedback(`Correct! You spelled ${stage.word}!`);
               setIsCorrect(true);
               isCorrectRef.current = true;
               setIsWaitingForReset(true);
@@ -694,7 +694,7 @@ export default function App() {
                       setIsCorrect(true);
                       isCorrectRef.current = true;
                       setFeedback(`Word Complete: ${targetWord}!`);
-                      setSpellingFeedback(null);
+                      setSpellingFeedback(`Correct! You spelled ${targetWord}!`);
                       setUserSpelling(targetWord.split("")); // Fill the box to show completion
                       setIsWaitingForReset(true);
                       isWaitingForResetRef.current = true;
@@ -820,7 +820,8 @@ export default function App() {
               if (handDetectedStartTimestamp.current === null) {
                 handDetectedStartTimestamp.current = Date.now();
               } else if (Date.now() - handDetectedStartTimestamp.current > 3000 && currentLevelRef.current !== 4) {
-                const adaptiveHint = getAdaptiveHint(expectedLetter, landmarks);
+                // Level 3 has no diagram — pass false so hints don't say "match the diagram".
+                const adaptiveHint = getAdaptiveHint(expectedLetter, landmarks, false);
                 setFeedback(`Hint: ${adaptiveHint}`);
               } else {
                 setFeedback(null);
@@ -2334,8 +2335,8 @@ export default function App() {
                 {(currentLevel === 3 || currentLevel === 4) && (
                   <div className="flex flex-col gap-4">
                     {spellingFeedback && (
-                      <div className={`p-4 rounded-2xl border flex items-center gap-3 ${
-                        spellingFeedback.includes('Correct') ? 'bg-green-50 border-green-100 text-green-900' : 'bg-red-50 border-red-100 text-red-900'
+                      <div className={`p-4 rounded-2xl border items-center gap-3 ${
+                        spellingFeedback.includes('Correct') ? 'hidden lg:flex bg-green-50 border-green-100 text-green-900' : 'flex bg-red-50 border-red-100 text-red-900'
                       }`}>
                         <div className={`p-1.5 rounded-lg ${spellingFeedback.includes('Correct') ? 'bg-green-100' : 'bg-red-100'}`}>
                           {spellingFeedback.includes('Correct') ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
@@ -2444,7 +2445,7 @@ export default function App() {
             >
               <div className="flex-1 lg:overflow-y-auto p-6 lg:p-10 space-y-6 lg:space-y-10">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600">
+                  <div className="hidden lg:flex w-12 h-12 bg-indigo-100 rounded-2xl items-center justify-center text-indigo-600">
                     <BookOpen className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl lg:text-3xl font-black text-gray-900 leading-tight">
