@@ -455,25 +455,25 @@ export default function App() {
     const groupLetters = ASL_LESSONS.filter(l => group.letters.includes(l.letter));
 
     return (
-      <div className="p-2">
-        <div className="mb-4">
-          <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3">Letters in Group</h3>
-          <div className="grid grid-cols-3 gap-2">
+      <div className="p-0 lg:p-2">
+        <div className="mb-0 lg:mb-4">
+          <h3 className="text-[10px] lg:text-xs font-black text-gray-400 uppercase tracking-widest mb-2 lg:mb-3">Letters in Group</h3>
+          <div className="grid grid-cols-3 gap-1.5 lg:gap-2">
             {groupLetters.map((lesson) => {
               const lessonIdx = ASL_LESSONS.findIndex(l => l.letter === lesson.letter);
               const isActive = currentLessonIndex === lessonIdx;
-              
+
               return (
                 <button
                   key={lesson.letter}
                   onClick={() => setCurrentLessonIndex(lessonIdx)}
-                  className={`aspect-square rounded-xl flex flex-col items-center justify-center transition-all ${
-                    isActive 
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-200 scale-105 z-10" 
+                  className={`h-9 lg:h-auto lg:aspect-square rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-200 lg:scale-105 z-10"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                   }`}
                 >
-                  <span className="text-xl font-bold">{lesson.letter}</span>
+                  <span className="text-sm lg:text-xl font-bold">{lesson.letter}</span>
                 </button>
               );
             })}
@@ -2025,8 +2025,8 @@ export default function App() {
               <div className="flex-1 lg:overflow-y-auto p-4 lg:p-6">
                 {currentLevel === 1 ? (
                   <div className="space-y-6 lg:space-y-8">
-                    {/* Illustration + letter: compact side-by-side on phone, stacked & large on desktop */}
-                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 items-center lg:items-stretch">
+                    {/* Illustration (left) + Letters in Group (right) on phone; stacked & large on desktop */}
+                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 items-start lg:items-stretch">
                       <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative shrink-0 w-28 sm:w-36 lg:w-auto lg:min-h-[240px]">
                         <AnimatePresence mode="wait">
                           {imageError ? (
@@ -2055,12 +2055,16 @@ export default function App() {
                         <p className="mt-2 lg:mt-4 text-[9px] lg:text-[10px] text-gray-400 font-black uppercase tracking-widest">Visual Reference</p>
                       </div>
 
-                      <div className="space-y-1 lg:space-y-2 flex-1 min-w-0">
-                        <h2 className="text-2xl lg:text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
-                        <p className="text-gray-500 leading-relaxed text-xs lg:text-sm">
-                          {currentLesson?.description}
-                        </p>
+                      <div className="flex-1 min-w-0 w-full">
+                        <Level1Content />
                       </div>
+                    </div>
+
+                    <div className="space-y-1 lg:space-y-2">
+                      <h2 className="text-2xl lg:text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
+                      <p className="text-gray-500 leading-relaxed text-xs lg:text-sm">
+                        {currentLesson?.description}
+                      </p>
                     </div>
 
                     <div className="flex items-center gap-4 px-2">
@@ -2075,10 +2079,6 @@ export default function App() {
                       <span className="text-xs font-bold text-blue-600">
                         {Math.round(progress)}%
                       </span>
-                    </div>
-
-                    <div className="pt-4 border-t border-gray-50">
-                      <Level1Content />
                     </div>
                   </div>
                 ) : currentLevel === 2 ? (
