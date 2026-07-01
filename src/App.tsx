@@ -2082,8 +2082,8 @@ export default function App() {
                     </div>
                   </div>
                 ) : currentLevel === 2 ? (
-                  <div className="space-y-8">
-                    <div className="text-center py-12 bg-blue-50 rounded-3xl border border-blue-100">
+                  <div className="space-y-5 lg:space-y-8">
+                    <div className="text-center py-6 lg:py-12 bg-blue-50 rounded-3xl border border-blue-100">
                       <AnimatePresence mode="wait">
                         {showPracticeInstruction ? (
                           <motion.div 
@@ -2096,7 +2096,7 @@ export default function App() {
                             <img 
                               src={practiceLetters[practiceIndex]?.diagramUrl} 
                               alt="Instruction"
-                              className="h-40 object-contain mb-4"
+                              className="h-24 lg:h-40 object-contain mb-4"
                               referrerPolicy="no-referrer"
                             />
                             <p className="text-blue-600 font-bold text-sm">
@@ -2112,8 +2112,8 @@ export default function App() {
                             exit={{ opacity: 0, y: -20 }}
                             className="flex flex-col items-center"
                           >
-                            <div className="relative mb-6">
-                              <div className="text-9xl font-black text-blue-600 leading-none">
+                            <div className="relative mb-3 lg:mb-6">
+                              <div className="text-6xl lg:text-9xl font-black text-blue-600 leading-none">
                                 {practiceLetters[practiceIndex]?.letter}
                               </div>
                             </div>
@@ -2125,7 +2125,7 @@ export default function App() {
                       </AnimatePresence>
                     </div>
 
-                    <div className="bg-white border border-gray-100 rounded-3xl p-6 space-y-6">
+                    <div className="bg-white border border-gray-100 rounded-3xl p-4 lg:p-6 space-y-6">
                       <div className="flex items-center justify-between">
                         <h4 className="font-bold text-gray-900 flex items-center gap-2">
                           <Trophy className="w-4 h-4 text-amber-500" />
@@ -2193,12 +2193,12 @@ export default function App() {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <div className="space-y-8">
-                    <div className={`${(currentLevel === 3 || currentLevel === 4) ? 'bg-indigo-50 border-indigo-100' : 'bg-gray-50 border-gray-100'} rounded-3xl p-8 border`}>
+                  <div className="space-y-5 lg:space-y-8">
+                    <div className={`${(currentLevel === 3 || currentLevel === 4) ? 'bg-indigo-50 border-indigo-100' : 'bg-gray-50 border-gray-100'} rounded-3xl p-5 lg:p-8 border`}>
                       <span className={`${(currentLevel === 3 || currentLevel === 4) ? 'text-indigo-400' : 'text-gray-400'} text-[10px] font-black uppercase tracking-widest block mb-4`}>
                         {currentLevel === 3 ? "Spelling Tutorial" : "Spelling Practice"}
                       </span>
-                      <h2 className={`${(currentLevel === 3 || currentLevel === 4) ? 'text-indigo-900' : 'text-gray-900'} text-2xl font-black mb-2 leading-tight`}>
+                      <h2 className={`${(currentLevel === 3 || currentLevel === 4) ? 'text-indigo-900' : 'text-gray-900'} text-lg lg:text-2xl font-black mb-2 leading-tight`}>
                         {SPELLING_STAGES[spellingStage].title}
                       </h2>
                       
@@ -2215,7 +2215,7 @@ export default function App() {
                           return (
                             <div 
                               key={i} 
-                              className={`w-12 h-14 rounded-xl flex items-center justify-center text-2xl font-black transition-all ${
+                              className={`w-10 h-12 lg:w-12 lg:h-14 rounded-xl flex items-center justify-center text-xl lg:text-2xl font-black transition-all ${
                                 isExpected ? 'bg-indigo-600 text-white scale-110 shadow-lg shadow-indigo-200' : 
                                 isCompleted ? 'bg-green-500 text-white' : 'bg-white text-indigo-200 border border-indigo-100'
                               }`}
