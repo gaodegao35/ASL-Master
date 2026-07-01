@@ -458,7 +458,7 @@ export default function App() {
       <div className="p-0 lg:p-2">
         <div className="mb-0 lg:mb-4">
           <h3 className="text-[10px] lg:text-xs font-black text-gray-400 uppercase tracking-widest mb-2 lg:mb-3">Letters in Group</h3>
-          <div className="grid grid-rows-2 grid-flow-col gap-1.5 lg:gap-2 w-max">
+          <div className="grid grid-cols-2 gap-1.5 lg:gap-2 w-max">
             {groupLetters.map((lesson) => {
               const lessonIdx = ASL_LESSONS.findIndex(l => l.letter === lesson.letter);
               const isActive = currentLessonIndex === lessonIdx;
@@ -467,13 +467,13 @@ export default function App() {
                 <button
                   key={lesson.letter}
                   onClick={() => setCurrentLessonIndex(lessonIdx)}
-                  className={`w-9 h-8 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
+                  className={`w-12 h-11 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
                     isActive
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-200 lg:scale-105 z-10"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                   }`}
                 >
-                  <span className="text-xs lg:text-xl font-bold">{lesson.letter}</span>
+                  <span className="text-base lg:text-xl font-bold">{lesson.letter}</span>
                 </button>
               );
             })}
