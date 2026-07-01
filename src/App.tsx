@@ -1872,7 +1872,7 @@ export default function App() {
             {/* Camera & Feedback — full width on mobile, left column on desktop */}
             <div className="w-full lg:flex-1 p-4 lg:p-8 flex flex-col gap-6 lg:overflow-y-auto items-center">
               <div className="w-full max-w-5xl">
-                <div className="relative w-full aspect-[3/4] lg:aspect-video bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <div className="relative w-full aspect-[4/3] lg:aspect-video bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                   <div ref={p5ContainerRef} className="w-full h-full" />
                   <AnimatePresence>
                     {showSuccess && (
