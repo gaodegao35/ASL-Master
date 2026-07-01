@@ -1826,10 +1826,10 @@ export default function App() {
         <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50/50">
           {/* Top Header with Progress */}
           <header className="bg-white border-b border-gray-100 px-4 sm:px-8 py-4 flex items-center justify-between gap-3 shadow-sm z-10">
-            <div className="flex items-center gap-8">
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex flex-col gap-1 min-w-0">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest whitespace-nowrap">
                     {currentLevel === 1 ? 'Level 1: Learn' : 
                      currentLevel === 2 ? 'Level 2: Practice' : 
                      currentLevel === 3 ? 'Level 3: Learn Spelling' : 
@@ -1839,7 +1839,7 @@ export default function App() {
                     <motion.span 
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold"
+                      className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold whitespace-nowrap shrink-0"
                     >
                       Shuffle {shuffleRound}
                     </motion.span>
@@ -1848,7 +1848,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 shrink-0">
               <div className="text-right">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Current Task</p>
                 <p className="text-sm font-black text-gray-900">
@@ -1882,36 +1882,36 @@ export default function App() {
                         exit={{ opacity: 0 }}
                         className="absolute inset-0 bg-green-500/20 z-40 pointer-events-none flex items-center justify-center backdrop-blur-[2px]"
                       >
-                        <div className="flex flex-col items-center gap-6">
+                        <div className="flex flex-col items-center gap-3 lg:gap-6">
                           <motion.div
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className="bg-white/90 p-5 rounded-full shadow-2xl border-4 border-green-500"
+                            className="bg-white/90 p-3 lg:p-5 rounded-full shadow-2xl border-4 border-green-500"
                           >
-                            <CheckCircle2 className="w-12 h-12 text-green-500" />
+                            <CheckCircle2 className="w-9 h-9 lg:w-12 lg:h-12 text-green-500" />
                           </motion.div>
                           
                           {currentLevel === 2 && (
                             <motion.div
                               initial={{ y: 20, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
-                              className="bg-white/90 p-4 rounded-3xl shadow-2xl border-2 border-green-100 flex flex-col items-center"
+                              className="bg-white/90 p-3 lg:p-4 rounded-3xl shadow-2xl border-2 border-green-100 flex flex-col items-center"
                             >
                               {imageError ? (
-                                <div className="h-40 w-40 flex flex-col items-center justify-center text-gray-400 gap-2">
+                                <div className="h-24 w-24 lg:h-40 lg:w-40 flex flex-col items-center justify-center text-gray-400 gap-2">
                                   <XCircle className="w-8 h-8" />
                                   <p className="text-[10px] font-bold">Illustration Unavailable</p>
                                 </div>
                               ) : (
-                                <img 
+                                <img
                                   src={practiceLetters[practiceIndex]?.diagramUrl}
                                   alt="Success Illustration"
-                                  className="h-40 object-contain"
+                                  className="h-24 lg:h-40 object-contain"
                                   referrerPolicy="no-referrer"
                                   onError={handleImageError}
                                 />
                               )}
-                              <p className="text-green-600 font-black text-xl mt-2">
+                              <p className="text-green-600 font-black text-lg lg:text-xl mt-2">
                                 {practiceLetters[practiceIndex]?.letter}
                               </p>
                             </motion.div>
@@ -2404,11 +2404,11 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-indigo-950/95 backdrop-blur-xl flex overflow-hidden"
+            className="fixed inset-0 z-[100] bg-indigo-950/95 backdrop-blur-xl flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden"
           >
-            {/* Left Section: Video Tutorial */}
-            <div className="flex-1 flex flex-col items-center justify-center p-12 relative">
-              <div className="w-full max-w-5xl aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(79,70,229,0.3)] border-8 border-white/10 relative group">
+            {/* Video Tutorial — top on phone, left on desktop */}
+            <div className="w-full lg:flex-1 flex flex-col items-center justify-center p-4 lg:p-12 relative">
+              <div className="w-full max-w-5xl aspect-video bg-black rounded-2xl lg:rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(79,70,229,0.3)] border-4 lg:border-8 border-white/10 relative group">
                 <video
                   src={SPELLING_STAGES[spellingStage].videoUrl}
                   className="w-full h-full object-contain"
@@ -2419,14 +2419,14 @@ export default function App() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              <div className="mt-12 text-center">
+              <div className="mt-6 lg:mt-12 text-center">
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
                   <p className="text-indigo-400 font-black text-xs uppercase tracking-[0.3em] mb-4">Tutorial Video</p>
-                  <h2 className="text-white text-6xl font-black tracking-tighter">
+                  <h2 className="text-white text-3xl lg:text-6xl font-black tracking-tighter">
                     {SPELLING_STAGES[spellingStage].word}
                   </h2>
                 </motion.div>
@@ -2434,22 +2434,22 @@ export default function App() {
             </div>
 
             {/* Right Section: Instruction Panel */}
-            <motion.div 
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="w-[450px] bg-white h-full flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.2)]"
+              className="w-full lg:w-[450px] bg-white lg:h-full flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.2)]"
             >
-              <div className="flex-1 overflow-y-auto p-10 space-y-10">
+              <div className="flex-1 lg:overflow-y-auto p-6 lg:p-10 space-y-6 lg:space-y-10">
                 <div className="space-y-4">
                   <div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600">
                     <BookOpen className="w-6 h-6" />
                   </div>
-                  <h3 className="text-3xl font-black text-gray-900 leading-tight">
+                  <h3 className="text-xl lg:text-3xl font-black text-gray-900 leading-tight">
                     {SPELLING_STAGES[spellingStage].title}
                   </h3>
-                  <p className="text-gray-500 text-lg font-medium leading-relaxed">
+                  <p className="text-gray-500 text-sm lg:text-lg font-medium leading-relaxed">
                     {SPELLING_STAGES[spellingStage].explanation}
                   </p>
                 </div>
@@ -2470,10 +2470,10 @@ export default function App() {
                 )}
               </div>
 
-              <div className="p-10 bg-gray-50 border-t border-gray-100">
+              <div className="p-6 lg:p-10 bg-gray-50 border-t border-gray-100">
                 <button
                   onClick={() => setShowSpellingVideo(false)}
-                  className="w-full py-6 bg-indigo-600 text-white rounded-[2rem] text-xl font-black hover:bg-indigo-700 transition-all shadow-[0_20px_40px_rgba(79,70,229,0.3)] flex items-center justify-center gap-3 group active:scale-[0.98]"
+                  className="w-full py-4 lg:py-6 bg-indigo-600 text-white rounded-[2rem] text-base lg:text-xl font-black hover:bg-indigo-700 transition-all shadow-[0_20px_40px_rgba(79,70,229,0.3)] flex items-center justify-center gap-3 group active:scale-[0.98]"
                 >
                   <span>Learn by Doing</span>
                   <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
