@@ -543,9 +543,16 @@ export const getAdaptiveHint = (letter: string, landmarks: HandLandmarks, includ
       break;
   }
   
-  // Fallback to the general description if no specific mismatch is found
+  // Fallback — always give an explicit, actionable instruction (never a vague
+  // "adjust your hand"). Double letters (e.g. "EE", "LL", "SS") have no single-
+  // letter entry, so guide the base letter (recurse for its specific hint) and
+  // then the "slide to repeat" motion.
+  if (letter && letter.length > 1) {
+    const baseHint = getAdaptiveHint(letter[0], landmarks, includeDiagramHint);
+    return `${baseHint} Then slide your hand slightly to the side to repeat the letter.`;
+  }
   const lesson = ASL_LESSONS.find(l => l.letter === letter);
-  return lesson ? lesson.description : ("Adjust your hand to " + (includeDiagramHint ? "match the diagram." : "correctly sign the letter."));
+  return lesson ? lesson.description : "Shape your fingers and thumb to form this letter.";
 };
 
 export enum JState { IDLE = "IDLE", STABILIZING = "STABILIZING", TRACKING = "TRACKING", SUCCESS = "SUCCESS" }
