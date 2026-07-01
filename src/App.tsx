@@ -1872,7 +1872,7 @@ export default function App() {
             {/* Camera & Feedback — full width on mobile, left column on desktop */}
             <div className="w-full lg:flex-1 p-4 lg:p-8 flex flex-col gap-6 lg:overflow-y-auto items-center">
               <div className="w-full max-w-5xl">
-                <div className="relative w-full aspect-video bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <div className="relative w-full aspect-[3/4] lg:aspect-video bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                   <div ref={p5ContainerRef} className="w-full h-full" />
                   <AnimatePresence>
                     {showSuccess && (
@@ -1986,7 +1986,7 @@ export default function App() {
                         </div>
                         <div>
                           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Detection Status</p>
-                          <p className="text-xl font-black text-gray-900">
+                          <p className="text-sm lg:text-xl font-black text-gray-900">
                             {!isCameraReady ? "Initializing Camera..." : !isModelReady ? "Loading hand detection..." : !handDetected ? "Waiting for gesture..." : isCorrect ? "Recognized ✓" : "Detecting..."}
                           </p>
                         </div>
@@ -2025,8 +2025,8 @@ export default function App() {
               <div className="flex-1 lg:overflow-y-auto p-4 lg:p-6">
                 {currentLevel === 1 ? (
                   <div className="space-y-6 lg:space-y-8">
-                    {/* Illustration (left) + Letters in Group (right) on phone; stacked & large on desktop */}
-                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 items-start lg:items-stretch">
+                    {/* Illustration (left) + letter explanation (right) — horizontal on phone, stacked on desktop */}
+                    <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 items-center lg:items-stretch">
                       <div className="bg-gray-50 rounded-2xl lg:rounded-3xl p-3 lg:p-6 flex flex-col items-center justify-center border border-dashed border-gray-200 relative shrink-0 w-28 sm:w-36 lg:w-auto lg:min-h-[240px]">
                         <AnimatePresence mode="wait">
                           {imageError ? (
@@ -2055,16 +2055,12 @@ export default function App() {
                         <p className="mt-2 lg:mt-4 text-[9px] lg:text-[10px] text-gray-400 font-black uppercase tracking-widest">Visual Reference</p>
                       </div>
 
-                      <div className="flex-1 min-w-0 w-full">
-                        <Level1Content />
+                      <div className="space-y-1 lg:space-y-2 flex-1 min-w-0">
+                        <h2 className="text-lg lg:text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
+                        <p className="text-gray-500 leading-relaxed text-xs lg:text-sm">
+                          {currentLesson?.description}
+                        </p>
                       </div>
-                    </div>
-
-                    <div className="space-y-1 lg:space-y-2">
-                      <h2 className="text-2xl lg:text-3xl font-black text-gray-900">Letter {currentLesson?.letter}</h2>
-                      <p className="text-gray-500 leading-relaxed text-xs lg:text-sm">
-                        {currentLesson?.description}
-                      </p>
                     </div>
 
                     <div className="flex items-center gap-4 px-2">
@@ -2079,6 +2075,10 @@ export default function App() {
                       <span className="text-xs font-bold text-blue-600">
                         {Math.round(progress)}%
                       </span>
+                    </div>
+
+                    <div className="pt-4 border-t border-gray-50">
+                      <Level1Content />
                     </div>
                   </div>
                 ) : currentLevel === 2 ? (
