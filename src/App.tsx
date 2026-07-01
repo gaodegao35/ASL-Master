@@ -1408,9 +1408,11 @@ export default function App() {
         className="fixed right-0 top-0 h-screen bg-white border-l border-gray-100 flex flex-col z-50 shadow-xl overflow-hidden"
       >
         <div className="p-4 border-b border-gray-50 flex items-center justify-between overflow-hidden">
-          <h1 className="font-bold text-lg tracking-tight text-gray-900 whitespace-nowrap">
-            ASL Master
-          </h1>
+          <img
+            src="/assets/frame1.svg"
+            alt="ASL Master"
+            className="h-7 w-auto max-w-[200px] object-contain object-left select-none"
+          />
           <button 
             onClick={() => setIsSidebarExpanded(false)}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -1818,7 +1820,12 @@ export default function App() {
 
         <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50/50">
           {/* Top Header with Progress */}
-          <header className="bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between shadow-sm z-10">
+          <header className="relative bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between shadow-sm z-10">
+            <img
+              src="/assets/logo.svg"
+              alt="ASL Master"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 pointer-events-none select-none"
+            />
             <div className="flex items-center gap-8">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-3">
