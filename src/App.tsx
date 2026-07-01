@@ -2196,7 +2196,16 @@ export default function App() {
                   </div>
                 ) : (
                   <div className="space-y-5 lg:space-y-8">
-                    <div className={`${(currentLevel === 3 || currentLevel === 4) ? 'bg-indigo-50 border-indigo-100' : 'bg-gray-50 border-gray-100'} rounded-3xl p-5 lg:p-8 border`}>
+                    <div className={`relative ${(currentLevel === 3 || currentLevel === 4) ? 'bg-indigo-50 border-indigo-100' : 'bg-gray-50 border-gray-100'} rounded-3xl p-5 lg:p-8 border`}>
+                      {currentLevel !== 4 && SPELLING_STAGES[spellingStage]?.videoUrl && (
+                        <button
+                          onClick={() => setShowSpellingVideo(true)}
+                          className="absolute top-3 right-3 z-10 text-[10px] font-black text-indigo-600 uppercase hover:text-indigo-800 transition-colors flex items-center gap-1 bg-white/70 hover:bg-white px-2.5 py-1 rounded-full shadow-sm"
+                        >
+                          <Lightbulb className="w-3 h-3" />
+                          Hint
+                        </button>
+                      )}
                       <span className={`${(currentLevel === 3 || currentLevel === 4) ? 'text-indigo-400' : 'text-gray-400'} text-[10px] font-black uppercase tracking-widest block mb-4`}>
                         {currentLevel === 3 ? "Spelling Tutorial" : "Spelling Practice"}
                       </span>
@@ -2250,51 +2259,6 @@ export default function App() {
                       </div>
                     )}
 
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-bold text-gray-900 flex items-center gap-2">
-                          <Hand className="w-4 h-4 text-indigo-500" />
-                          Your Input
-                        </h4>
-                        <div className="flex items-center gap-4">
-                          {currentLevel !== 4 && (
-                            <button 
-                              onClick={() => setShowSpellingVideo(true)}
-                              className="text-[10px] font-black text-indigo-600 uppercase hover:text-indigo-800 transition-colors flex items-center gap-1"
-                            >
-                              <Lightbulb className="w-3 h-3" />
-                              Hint
-                            </button>
-                          )}
-                          <button 
-                            onClick={clearSpelling}
-                            className="text-[10px] font-black text-gray-400 uppercase hover:text-red-500 transition-colors"
-                          >
-                            Clear
-                          </button>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-2 min-h-[80px] p-4 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
-                        {userSpelling.map((char, i) => {
-                          const currentStage = SPELLING_STAGES[spellingStage];
-                          const expectedChar = currentStage.isContinuous 
-                            ? currentStage.word[i] 
-                            : currentStage.steps[i];
-                          const isCharCorrect = char === expectedChar;
-
-                          return (
-                            <motion.div 
-                              key={i}
-                              initial={{ scale: 0.5, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              className={`w-10 h-10 bg-white border border-gray-100 ${isCharCorrect ? 'text-emerald-500' : 'text-indigo-600'} rounded-xl flex items-center justify-center text-xl font-black shadow-sm`}
-                            >
-                              {char}
-                            </motion.div>
-                          );
-                        })}
-                      </div>
-                    </div>
                   </div>
                 )}
               </div>
