@@ -458,7 +458,7 @@ export default function App() {
       <div className="p-0 lg:p-2">
         <div className="mb-0 lg:mb-4">
           <h3 className="text-[10px] lg:text-xs font-black text-gray-400 uppercase tracking-widest mb-2 lg:mb-3">Letters in Group</h3>
-          <div className="grid grid-cols-2 gap-1.5 lg:gap-2 w-max">
+          <div className="grid grid-cols-2 gap-1.5 lg:gap-2 w-max lg:w-full">
             {groupLetters.map((lesson) => {
               const lessonIdx = ASL_LESSONS.findIndex(l => l.letter === lesson.letter);
               const isActive = currentLessonIndex === lessonIdx;
@@ -467,7 +467,7 @@ export default function App() {
                 <button
                   key={lesson.letter}
                   onClick={() => setCurrentLessonIndex(lessonIdx)}
-                  className={`w-16 h-14 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
+                  className={`w-16 h-14 lg:w-full lg:h-16 rounded-lg lg:rounded-xl flex items-center justify-center transition-all ${
                     isActive
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-200 lg:scale-105 z-10"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
@@ -2202,7 +2202,7 @@ export default function App() {
                       {currentLevel !== 4 && SPELLING_STAGES[spellingStage]?.videoUrl && (
                         <button
                           onClick={() => setShowSpellingVideo(true)}
-                          className="absolute top-3 right-3 z-10 text-[10px] font-black text-indigo-600 uppercase hover:text-indigo-800 transition-colors flex items-center gap-1 bg-white/70 hover:bg-white px-2.5 py-1 rounded-full shadow-sm"
+                          className="lg:hidden absolute top-3 right-3 z-10 text-[10px] font-black text-indigo-600 uppercase hover:text-indigo-800 transition-colors flex items-center gap-1 bg-white/70 hover:bg-white px-2.5 py-1 rounded-full shadow-sm"
                         >
                           <Lightbulb className="w-3 h-3" />
                           Hint
@@ -2260,6 +2260,53 @@ export default function App() {
                         </p>
                       </div>
                     )}
+
+                    {/* Your Input — desktop only */}
+                    <div className="hidden lg:block space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-bold text-gray-900 flex items-center gap-2">
+                          <Hand className="w-4 h-4 text-indigo-500" />
+                          Your Input
+                        </h4>
+                        <div className="flex items-center gap-4">
+                          {currentLevel !== 4 && (
+                            <button
+                              onClick={() => setShowSpellingVideo(true)}
+                              className="text-[10px] font-black text-indigo-600 uppercase hover:text-indigo-800 transition-colors flex items-center gap-1"
+                            >
+                              <Lightbulb className="w-3 h-3" />
+                              Hint
+                            </button>
+                          )}
+                          <button
+                            onClick={clearSpelling}
+                            className="text-[10px] font-black text-gray-400 uppercase hover:text-red-500 transition-colors"
+                          >
+                            Clear
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2 min-h-[80px] p-4 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                        {userSpelling.map((char, i) => {
+                          const currentStage = SPELLING_STAGES[spellingStage];
+                          const expectedChar = currentStage.isContinuous
+                            ? currentStage.word[i]
+                            : currentStage.steps[i];
+                          const isCharCorrect = char === expectedChar;
+
+                          return (
+                            <motion.div
+                              key={i}
+                              initial={{ scale: 0.5, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              className={`w-10 h-10 bg-white border border-gray-100 ${isCharCorrect ? 'text-emerald-500' : 'text-indigo-600'} rounded-xl flex items-center justify-center text-xl font-black shadow-sm`}
+                            >
+                              {char}
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </div>
 
                   </div>
                 )}
